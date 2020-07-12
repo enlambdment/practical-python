@@ -1,26 +1,37 @@
-# pcost.py
-#
-# Exercise 1.27
+import csv
+import sys 
 
-# >>> import os
-# >>> os.getcwd()
-# will give '/Users/jaimepiedra/Desktop/practical-python/Work'
+def portfolio_cost(filename):
+	'''
+	Takes a filename as input, reads the portfolio data
+	in that file, and returns the total cost of the portfolio
+	as a float.
+	'''
+	with open(filename, 'rt') as f:
+		# parse rows
+		rows = csv.reader(f)
+		# skip headers
+		headers = next(rows)
+		# now, start building up total portfolio value
+		total_value = 0
+		for row in rows:
+			try:
+				row_shares 		= int(row[1])
+				row_share_price = float(row[2])
+			except ValueError:
+				print("Couldn't parse number(s) from: ", row)
+			row_value 		= row_shares * row_share_price
+			total_value		= total_value + row_value
 
-filename = 'Data/portfolio.csv'
+	# return total portfolio value
+	return total_value
 
-with open(filename, 'rt') as f:
-	# skip header row
-	headers = next(f).split(',')
-	# now, start building up total portfolio value
-	total_value = 0
-	for line in f:
-		row = line.split(',')
-		row_shares 		= int(row[1])
-		row_share_price = float(row[2])
-		row_value 		= row_shares * row_share_price
-		total_value		= total_value + row_value
-	# report total value
-	print(f'Total cost {total_value:0.2f}')
-
+if len(sys.argv) == 2:
+	filename = sys.argv[1]
+else:
+	filename = 'Data/portfolio.csv'
+	
+cost = portfolio_cost(filename)
+print('Total cost: ', cost)
 
 
