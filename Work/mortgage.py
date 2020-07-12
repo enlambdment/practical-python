@@ -35,9 +35,6 @@ while round(principal, ndigits=2) > 0.00:
 		paid_down = round(
 			min(principal, payment), ndigits=2)
 
-	# ? debug
-	print('This month you will pay', paid_down)
-
 	principal = round(
 		(principal * (1+rate/12)) - paid_down, ndigits=2)
 
@@ -45,7 +42,7 @@ while round(principal, ndigits=2) > 0.00:
 
 	# Exercise 1.10
 	# print current status
-	print(current_month, total_paid, principal)
+	print(f'Month {current_month} of payment:\t ${total_paid:0.2f} paid in total,\t ${principal:0.2f} principal remaining')
 
 	current_month = current_month + 1
 
