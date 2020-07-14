@@ -83,3 +83,59 @@ print(
 	{total_current_value:0.2f}, \
 	and your portfolio value has changed by: \
 	{total_delta:0.2f}")
+
+# Exercise 2.9 
+
+def make_report(stock_list, price_list):
+		'''
+		Takes a list of stocks & a dictionary of prices as input;
+		returns a list of tuples containing the rows for a table
+		(without header or row / column delimiters)
+		'''
+
+		tuples = [
+			# stock symbol
+			(d['name'],
+			# number of shares
+			d['shares'],
+			# current share price
+			price_list[d['name']],
+			# change in share price
+			price_list[d['name']] - d['price']) 
+			for d in stock_list]
+
+		return tuples
+
+# Exercise 2.10
+
+report = make_report(portfolio, prices)
+# for r in report:
+# 	print('%10s %10d %10.2f %10.2f' % r)
+
+# Exercise 2.11  
+
+def show_report(report):
+	'''
+	Print out the records making up the report table.
+	'''
+	headers = ('Name', 'Shares', 'Price', 'Change')
+	header_words = ['%10s' % r for r in headers]
+	header = ' '.join(header_words)
+	print(header)
+
+	separator_words = ['-' * 10 for _ in headers]
+	separator = ' '.join(separator_words)
+	print(separator)
+
+	# Exercise 2.12 Formatting Challenge
+	for r in report:
+		print(f'{r[0]:>10s} {r[1]:>10d} ' +
+			# nested f-strings! get the 
+			# price part of r, r[2], as 
+			# a float with 2 decimal places,
+			# then place '$' on left &
+			# right justify the resulting string
+			# inside a field of 10 chars
+				f'{ f"${r[2]:0.2f}" :>10s} ' + 
+				   f'{r[3]:>10.2f}')
+
