@@ -49,16 +49,6 @@ def read_prices(filename):
 
 	return prices
 
-# Exercise 2.7
-
-# Take list of stocks from 'Data/portfolio.csv'
-portfolio_fname = 'Data/portfolio.csv'
-portfolio = read_portfolio(portfolio_fname)
-
-# Take dictionary of prices from 'Data/prices.csv'
-prices_fname = 'Data/prices.csv'
-prices = read_prices(prices_fname)
-
 def portfolio_value_and_change(portfolio, prices):
 	'''
 	Compute current value of portfolio along with 
@@ -126,15 +116,9 @@ def make_report(stock_list, price_list):
 
 		return tuples
 
-# Exercise 2.10
-
-report = make_report(portfolio, prices)
-# for r in report:
-# 	print('%10s %10d %10.2f %10.2f' % r)
-
 # Exercise 2.11  
 
-def show_report(report):
+def print_report(report):
 	'''
 	Print out the records making up the report table.
 	'''
@@ -159,3 +143,38 @@ def show_report(report):
 				f'{ f"${r[2]:0.2f}" :>10s} ' + 
 				   f'{r[3]:>10.2f}')
 
+# Exercise 3.1
+# "[...] Change the last part of the program so that
+# it is nothing more than a series of function calls 
+# and no other computation."
+
+# Take list of stocks from 'Data/portfolio.csv'
+# portfolio_fname = 'Data/portfolio.csv'
+# portfolio = read_portfolio(portfolio_fname)
+
+# # Take dictionary of prices from 'Data/prices.csv'
+# prices_fname = 'Data/prices.csv'
+# prices = read_prices(prices_fname)
+
+# report = make_report(portfolio, prices)
+
+# Exercise 3.2
+# "[...] Take the last part of your program and
+# package it into a single function [...] Have 
+# the function work so that the following function 
+# call creates the report as before:
+#
+# portfolio_report('Data/portfolio.csv', 'Data/prices.csv')"
+
+def portfolio_report(portfolio_fname, prices_fname):
+	'''
+	Read a portfolio filename, and a prices filename,
+	to produce a report on current portfolio value &
+	changes in value
+	'''
+	portfolio = read_portfolio(portfolio_fname)
+	prices = read_prices(prices_fname)
+	report = make_report(portfolio, prices)
+	print_report(report)
+
+portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
