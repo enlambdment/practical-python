@@ -1,4 +1,13 @@
+#!/usr/bin/env python3
+# report.py
+
 import csv
+import fileparse
+from typing import List
+
+# Exercise 3.12: Using your library module
+# Modify the report.py program so that all of the input
+# file procecssing is done using functions in fileparse module.
 
 # Exercise 2.16: Using the zip() function
 def read_portfolio(filename):
@@ -6,24 +15,11 @@ def read_portfolio(filename):
 	Opens a given portfolio file and 
 	reads it into a list of dictionaries.
 	'''
-	portfolio = [] 
-
 	with open(filename, 'rt') as f:
-		rows = csv.reader(f)
-		headers = next(rows)
-		
-		for row in rows:
-			
-			# don't hard-code the row indices containing the
-			# values you need
-
-			# d = {}
-			# d['name'] = row[0]
-			# d['shares'] = int(row[1])
-			# d['price'] = float(row[2])
-
-			record = dict(zip(headers, row))
-			portfolio.append(record)
+		portfolio = fileparse.parse_csv(f,
+			select = ['name',	'shares',	'price'],
+			types =  [str,		int,		float],
+			has_headers = True)
 
 	return portfolio
 
@@ -32,20 +28,12 @@ def read_prices(filename):
 	Reads a list of symbols paired with prices
 	& returns a dictionary of stock prices.
 	'''
-	prices = {}
-
 	with open(filename, 'rt') as f:
-		rows = csv.reader(f)
-		for row in rows:
-			# try:
-			# 	prices[row[0]] = float(row[1])
-			# except IndexError:
-			# 	print("Couldn't parse:\t", row)
+		pricelist = fileparse.parse_csv(f,
+			types = [str, float],
+			has_headers = False)
 
-			# alternatively, guard against bad data
-			# using an if-statement:
-			if len(row) == 2:
-				prices[row[0]] = float(row[1])
+		prices = dict(pricelist)
 
 	return prices
 
@@ -89,10 +77,6 @@ def portfolio_value_and_change(portfolio, prices):
 		{total_current_value:0.2f}, \
 		and your portfolio value has changed by: \
 		{total_delta:0.2f}")
-
-# portfolio_value_and_change(portfolio, prices)
-# The total value of your portfolio is: 		28686.10, 		
-# and your portfolio value has changed by: 		-32527.05
 
 # Exercise 2.9 
 
@@ -143,28 +127,7 @@ def print_report(report):
 				f'{ f"${r[2]:0.2f}" :>10s} ' + 
 				   f'{r[3]:>10.2f}')
 
-# Exercise 3.1
-# "[...] Change the last part of the program so that
-# it is nothing more than a series of function calls 
-# and no other computation."
 
-# Take list of stocks from 'Data/portfolio.csv'
-# portfolio_fname = 'Data/portfolio.csv'
-# portfolio = read_portfolio(portfolio_fname)
-
-# # Take dictionary of prices from 'Data/prices.csv'
-# prices_fname = 'Data/prices.csv'
-# prices = read_prices(prices_fname)
-
-# report = make_report(portfolio, prices)
-
-# Exercise 3.2
-# "[...] Take the last part of your program and
-# package it into a single function [...] Have 
-# the function work so that the following function 
-# call creates the report as before:
-#
-# portfolio_report('Data/portfolio.csv', 'Data/prices.csv')"
 
 def portfolio_report(portfolio_fname, prices_fname):
 	'''
@@ -177,4 +140,19 @@ def portfolio_report(portfolio_fname, prices_fname):
 	report = make_report(portfolio, prices)
 	print_report(report)
 
-portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
+# Exercise 3.15: main() functions
+def main(args: List[str]):
+	'''
+	Accepts a list of command line options.
+	Produces the portfolio_report output due to them.
+	'''
+	py_fname 		= args[0]
+	portfolio_arg 	= args[1]
+	prices_arg 		= args[2]
+
+	if py_fname == 'report.py':
+		portfolio_report(portfolio_arg, prices_arg)
+
+if __name__ == '__main__':
+	import sys
+	main(sys.argv)
