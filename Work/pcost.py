@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 # pcost.py
 
+import stock
 from report import read_portfolio
 from typing import List
+
+# Exercise 4.4: Using your class (from stock.py)
 
 def portfolio_cost(filename):
 	'''
@@ -14,14 +17,14 @@ def portfolio_cost(filename):
 	# Modify the pcost.py file so that it uses the 
 	# report.read_portfolio() function.
 	# So, instead of iterating over the csv.reader(f),
-	# use report.read_portfolio() to get the dictionary
-	# of stock prices from 'Data/portfolio.csv'
+	# use report.read_portfolio() to get the list of
+	# stock holdings from 'Data/portfolio.csv'
 
 	portfolio = read_portfolio(filename)
 
 	total_value = 0
-	for row in portfolio:
-		total_value += row['shares'] * row['price']
+	for s in portfolio:
+		total_value += s.cost()
 
 	# return total portfolio value
 	return total_value
