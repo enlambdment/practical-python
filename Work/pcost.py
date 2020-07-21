@@ -22,12 +22,9 @@ def portfolio_cost(filename):
 
 	portfolio = read_portfolio(filename)
 
-	total_value = 0
-	for s in portfolio:
-		total_value += s.cost
-
-	# return total portfolio value
-	return total_value
+	# Modifying this function to leverage the fact that
+	# 'portfolio' is now a Portfolio instance:
+	return portfolio.total_cost
 
 # if len(sys.argv) == 2:
 # 	filename = sys.argv[1]

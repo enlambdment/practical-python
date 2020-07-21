@@ -3,8 +3,9 @@
 
 import csv
 import fileparse
-import stock
 import tableformat
+from stock import Stock
+from portfolio import Portfolio 
 from typing import List
 
 # Exercise 3.12: Using your library module
@@ -16,8 +17,7 @@ from typing import List
 # Exercise 2.16: Using the zip() function
 def read_portfolio(filename):
 	'''
-	Opens a given portfolio file and 
-	reads it into a list of Stock instances.
+	Read a stock portfolio file into a Portfolio instance.
 	'''
 	with open(filename, 'rt') as f:
 		portdicts = fileparse.parse_csv(f,
@@ -25,11 +25,8 @@ def read_portfolio(filename):
 			types =  [str,		int,		float],
 			has_headers = True)
 
-	portlist = [
-		stock.Stock(d['name'], d['shares'], d['price'])
-		for d in portdicts ]
-
-	return portlist
+	portlist = [ Stock(d['name'], d['shares'], d['price']) for d in portdicts ]
+	return Portfolio(portlist)
 
 def read_prices(filename):
 	'''

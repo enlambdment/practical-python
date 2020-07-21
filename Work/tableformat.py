@@ -81,6 +81,11 @@ def print_table(objs, attrs, formatter):
 
 	# Emit a row of table data, for each obj in 'objs'
 	for obj in objs:
-		obj_row = [str(getattr(obj, attr)) for attr in attrs]
+		# Not all objects are dictionaries in their underlying representation
+		# (e.g. instances of a class with '__slots__' defined), but this is still
+		# more appropriate than 'getattr(obj, attr)' - onus should be on code
+		# leveraging tableformat to take care of casting objects into dicts, not on
+		# 'print_table' to handle dict- vs. non-dict-based objects agnostically
+		obj_row = [str(obj[attr]) for attr in attrs]
 		formatter.row(obj_row)
 
