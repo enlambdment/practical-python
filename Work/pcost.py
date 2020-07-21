@@ -24,7 +24,7 @@ def portfolio_cost(filename):
 
 	total_value = 0
 	for s in portfolio:
-		total_value += s.cost()
+		total_value += s.cost
 
 	# return total portfolio value
 	return total_value

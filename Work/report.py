@@ -72,7 +72,7 @@ def portfolio_value_and_change(portfolio, prices):
 		for t in portfolio:
 			if t.name == s:
 				s_shares += t.shares
-				past_s_value += t.cost()
+				past_s_value += t.cost
 
 		# calculate current value due to share: s
 		current_s_value = s_shares * current_price
