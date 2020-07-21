@@ -15,18 +15,16 @@ from typing import List
 # Exercise 4.4: Using your class (from stock.py)
 
 # Exercise 2.16: Using the zip() function
-def read_portfolio(filename):
+
+def read_portfolio(filename, **opts):
 	'''
 	Read a stock portfolio file into a Portfolio instance.
 	'''
+	# Portfolio now has a class method 'from_csv()' that we can leverage
 	with open(filename, 'rt') as f:
-		portdicts = fileparse.parse_csv(f,
-			select = ['name',	'shares',	'price'],
-			types =  [str,		int,		float],
-			has_headers = True)
+		port = Portfolio.from_csv(f, has_headers=True)
 
-	portlist = [ Stock(d['name'], d['shares'], d['price']) for d in portdicts ]
-	return Portfolio(portlist)
+	return port
 
 def read_prices(filename):
 	'''
@@ -151,7 +149,8 @@ def portfolio_report(portfolio_fname, prices_fname, fmt='txt'):
 	Make a stock report, given portfolio and price data files.
 	'''
 	# Read data files
-	portfolio = read_portfolio(portfolio_fname)
+	# Exercise 7.4: Argument pass-through
+	portfolio = read_portfolio(portfolio_fname, has_headers=True)
 	prices = read_prices(prices_fname)
 
 	# Create the report data

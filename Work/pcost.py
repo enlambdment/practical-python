@@ -20,7 +20,7 @@ def portfolio_cost(filename):
 	# use report.read_portfolio() to get the list of
 	# stock holdings from 'Data/portfolio.csv'
 
-	portfolio = read_portfolio(filename)
+	portfolio = read_portfolio(filename, has_headers=True)
 
 	# Modifying this function to leverage the fact that
 	# 'portfolio' is now a Portfolio instance:

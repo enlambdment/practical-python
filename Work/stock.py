@@ -1,25 +1,21 @@
+# Exercise 7.8: Simplifying Function Calls
+# This makes Stock into a sort of 'smart constructor':
+# the values passed to Stock(...) as arguments 
+# will now have type-checking applied!
+from typedproperty import *
+
 class Stock:
 	'''
 	A class where an instance represents a single holding of stock.
 	'''
-	# Exercise 5.8: Adding slots	
-	__slots__ = ('name', '_shares', 'price')
-	
-	def __init__(self, name, shares, price):
-		self.name = name
-		self.shares = shares
-		self.price = price
+	name 	= String('name')
+	shares 	= Integer('shares')
+	price 	= Float('price')
 
-	# Exercise 5.7: Properties and Setters
-	@property
-	def shares(self):
-		return self._shares
-	
-	@shares.setter
-	def shares(self, value):
-		if not isinstance(value, int):
-			raise TypeError('Expected int')
-		self._shares = value
+	def __init__(self, name, shares, price):
+		self.name = name 
+		self.shares = shares 
+		self.price = price
 
 	def __repr__(self):
 		return (f'Stock({self.name}, {self.shares}, {self.price})')
