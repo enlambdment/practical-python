@@ -1,6 +1,10 @@
 import csv
 from typing import List, Dict, Iterable
 
+# Section 8.2: Logging
+import logging
+log = logging.getLogger(__name__)
+
 # Exercise 3.3: Reading CSV Files
 # Exercise 3.4: Building a Column Selector
 # Exercise 3.5: Performing Type Conversion
@@ -33,7 +37,8 @@ def parse_csv(lines: Iterable[str], select: List[str] = None
 						   		  , types = None
 						   		  , has_headers = False
 						   		  , delimiter = ','
-						   		  , silence_errors = False) -> List[Dict[str, str]]:
+						   		  # , silence_errors = False
+						   		  ) -> List[Dict[str, str]]:
 	'''
 	Parse an iterable of comma-separated values into a list of records
 	'''
@@ -106,11 +111,14 @@ def parse_csv(lines: Iterable[str], select: List[str] = None
 					else:
 						record = tuple(row)
 				records.append(record)
+
 			except ValueError as e:
 				# Exercise 3.10: Silencing Errors
-				if not silence_errors:
-					print(f"Row {row_no}: Couldn't convert {row}")
-					print(f"Row {row_no}: Reason - {e}")
+				# if not silence_errors:
+				# 	print(f"Row {row_no}: Couldn't convert {row}")
+				# 	print(f"Row {row_no}: Reason - {e}")
+				log.warning("Row %d: Couldn't parse : %s", row_no, row)
+				log.debug("Row %d: Reason : %s", row_no, e)
 
 
 	return records

@@ -1,9 +1,9 @@
 # Exercise 6.10: Making more pipeline components
 
-from follow import follow
-from report import read_portfolio
+from .follow import follow
+from .report import read_portfolio
 import csv
-import tableformat
+from . import tableformat
 
 def select_columns(rows, indices):
 	for row in rows:

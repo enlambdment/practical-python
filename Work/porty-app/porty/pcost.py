@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # pcost.py
 
-import stock
-from report import read_portfolio
+from . import stock
+from .report import read_portfolio
 from typing import List
 
 # Exercise 4.4: Using your class (from stock.py)
@@ -41,9 +41,8 @@ def main(args: List[str]):
 	py_fname	= args[0]
 	portf_fname = args[1]
 
-	if py_fname == 'pcost.py':
-		cost = portfolio_cost(portf_fname)
-		print('Total cost: ', cost)
+	cost = portfolio_cost(portf_fname)
+	print('Total cost: ', cost)
 
 if __name__ == '__main__':
 	import sys

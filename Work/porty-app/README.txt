@@ -1,0 +1,1 @@
+While working through the exercises for David Beazley's Practical Python course, I've implemented a simple and straightforward file parser for CSV files, type classes for representing Stock / Portfolio objects, and modules for parsing stock prices and portfolio contents for use in deriving reports, available in several formats such as text, CSV, and HTML.

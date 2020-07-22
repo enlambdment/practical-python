@@ -2,7 +2,7 @@
 # This makes Stock into a sort of 'smart constructor':
 # the values passed to Stock(...) as arguments 
 # will now have type-checking applied!
-from typedproperty import *
+from .typedproperty import *
 
 class Stock:
 	'''

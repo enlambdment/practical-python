@@ -7,8 +7,8 @@
 # CSV file, then maybe you should make a 
 # class method for it. (b)
 
-import stock
-import fileparse
+from . import stock
+from . import fileparse
 
 class Portfolio:
 	def __init__(self):

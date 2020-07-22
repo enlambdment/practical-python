@@ -2,10 +2,10 @@
 # report.py
 
 import csv
-import fileparse
-import tableformat
-from stock import Stock
-from portfolio import Portfolio 
+from . import fileparse
+from . import tableformat
+from .stock import Stock
+from .portfolio import Portfolio 
 from typing import List
 
 # Exercise 3.12: Using your library module
@@ -167,14 +167,23 @@ def main(args: List[str]):
 	Accepts a list of command line options.
 	Produces the portfolio_report output due to them.
 	'''
+	# Exercise 8.3: Adding Logging to a Program
+	# This code sets up basic configuration of the logging module.
+	# Change settings here to adjust logging output as needed.
+	import logging
+	logging.basicConfig(
+	    filename = 'app.log',            # Name of the log file (omit to use stderr)
+	    filemode = 'w',                  # File mode (use 'a' to append)
+	    level    = logging.WARNING,      # Logging level (DEBUG, INFO, WARNING, ERROR, or CRITICAL)
+		)
+
 	py_fname 		= args[0]
 	portfolio_arg 	= args[1]
 	prices_arg 		= args[2]
 	# The 3rd argument, specifying the output format, is optional
 	fmt_arg 		= args[3] if len(args) == 4 else 'txt'
 
-	if py_fname == 'report.py':
-		portfolio_report(portfolio_arg, prices_arg, fmt_arg)
+	portfolio_report(portfolio_arg, prices_arg, fmt_arg)
 
 if __name__ == '__main__':
 	import sys
